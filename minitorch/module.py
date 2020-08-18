@@ -114,10 +114,12 @@ class Module:
 
     def train(self):
         "Set the mode of this module and all descendent modules to `train`."
+        # TODO: Implement.
         raise NotImplementedError
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `train`."
+        # TODO: Implement.
         raise NotImplementedError
 
     def named_parameters(self):
@@ -128,6 +130,7 @@ class Module:
         Returns:
             dict: Each name (key) and :class:`Parameter` (value) under this module.
         """
+        # TODO: Implement.
         raise NotImplementedError
 
     def parameters(self):

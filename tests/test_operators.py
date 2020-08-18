@@ -29,6 +29,7 @@ def test_symmetric():
     gives the same value regardless of the order of its input.
     """
     None
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -39,6 +40,7 @@ def test_distribute():
     :math:`z \times (x + y) = z \times x + z \times y`
     """
     None
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -48,6 +50,7 @@ def test_other():
     Write a test that ensures some other property holds for your functions.
     """
     None
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -70,6 +73,7 @@ def test_property(ls1, ls2):
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 

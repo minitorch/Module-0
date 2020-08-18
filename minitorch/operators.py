@@ -20,30 +20,35 @@ import math
 @jit
 def mul(x, y):
     ":math:`f(x, y) = x * y`"
+    # TODO: Implement.
     raise NotImplementedError
 
 
 @jit
 def id(x):
     ":math:`f(x) = x`"
+    # TODO: Implement.
     raise NotImplementedError
 
 
 @jit
 def add(x, y):
     ":math:`f(x, y) = x + y`"
+    # TODO: Implement.
     raise NotImplementedError
 
 
 @jit
 def neg(x):
     ":math:`f(x) = -x`"
+    # TODO: Implement.
     raise NotImplementedError
 
 
 @jit
 def lt(x, y):
     ":math:`f(x) =` 1.0 if x is greater then y else 0.0"
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -54,6 +59,7 @@ def sigmoid(x):
 
     (See https://en.wikipedia.org/wiki/Sigmoid_function .)
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -64,12 +70,14 @@ def relu(x):
 
     (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks).)
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
 @jit
 def relu_back(x, y):
     ":math:`f(x) =` y if x is greater then 0 else 0"
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -113,6 +121,7 @@ def map(fn):
     Returns:
         function : a function that takes a list and applies `fn` to each element
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -137,6 +146,7 @@ def zipWith(fn):
     applying fn(x, y) one each pair of elements.
 
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -162,6 +172,7 @@ def reduce(fn, start):
         fn(x_1, x_0)))`
 
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -169,6 +180,7 @@ def sum(ls):
     """
     Sum up a list using :func:`reduce` and :func:`add`.
     """
+    # TODO: Implement.
     raise NotImplementedError
 
 
@@ -176,4 +188,5 @@ def prod(ls):
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """
+    # TODO: Implement.
     raise NotImplementedError
