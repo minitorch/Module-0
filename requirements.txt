@@ -1,0 +1,9 @@
+numpy
+numba == 0.49
+pytest
+pytest-runner
+hypothesis == 4.38
+flake8
+black
+pep8-naming
+

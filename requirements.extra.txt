@@ -1,0 +1,5 @@
+networkx
+matplotlib
+git+https://github.com/facebookresearch/visdom
+graphviz
+torch
