@@ -1,9 +1,7 @@
+# MiniTorch - Module 0
 
 
-# Organization
-
-* minitorch/ - Minitorch core code
-* tests/ - Tests for the core minitorch library.
-* project/ - ML development.
+https://minitorch.github.io/module0.html
 
 
+> python run_tests.py
