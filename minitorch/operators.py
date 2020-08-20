@@ -6,97 +6,81 @@ Operators
 Basic math operations as well as a few warmup problems
 for testing out your functional programming chops in python.
 
-
-(Please ignore the @jit decorator for now. It will come back in later
-assignments.)
-
 """
 
 
-from .util import jit
 import math
 
 
-@jit
 def mul(x, y):
     ":math:`f(x, y) = x * y`"
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def id(x):
     ":math:`f(x) = x`"
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def add(x, y):
     ":math:`f(x, y) = x + y`"
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def neg(x):
     ":math:`f(x) = -x`"
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def lt(x, y):
     ":math:`f(x) =` 1.0 if x is greater then y else 0.0"
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def sigmoid(x):
     r"""
-    :math:`f(x) =  \frac{1.0}{(1.0 + e^{-a})}`
+    :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}`
 
     (See https://en.wikipedia.org/wiki/Sigmoid_function .)
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def relu(x):
     """
-    :math:`f(x) =` x if x is greater then y else 0
+    :math:`f(x) =` x if x is greater than 0, else 0
 
     (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks).)
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
-@jit
 def relu_back(x, y):
     ":math:`f(x) =` y if x is greater then 0 else 0"
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.1.
+    raise NotImplementedError('Need to implement for Task 0.1')
 
 
 EPS = 1e-6
 
 
-@jit
 def log(x):
     ":math:`f(x) = log(x)`"
     return math.log(x + EPS)
 
 
-@jit
 def exp(x):
     ":math:`f(x) = e^{x}`"
     return math.exp(x)
 
 
-@jit
 def log_back(a, b):
     return b / (a + EPS)
 
@@ -121,8 +105,8 @@ def map(fn):
     Returns:
         function : a function that takes a list and applies `fn` to each element
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.3.
+    raise NotImplementedError('Need to implement for Task 0.3')
 
 
 def negList(ls):
@@ -146,8 +130,8 @@ def zipWith(fn):
     applying fn(x, y) one each pair of elements.
 
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.3.
+    raise NotImplementedError('Need to implement for Task 0.3')
 
 
 def addLists(ls1, ls2):
@@ -172,21 +156,21 @@ def reduce(fn, start):
         fn(x_1, x_0)))`
 
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.3.
+    raise NotImplementedError('Need to implement for Task 0.3')
 
 
 def sum(ls):
     """
     Sum up a list using :func:`reduce` and :func:`add`.
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.3.
+    raise NotImplementedError('Need to implement for Task 0.3')
 
 
 def prod(ls):
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """
-    # TODO: Implement.
-    raise NotImplementedError
+    # TODO: Implement for Task 0.3.
+    raise NotImplementedError('Need to implement for Task 0.3')

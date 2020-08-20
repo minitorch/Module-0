@@ -43,20 +43,27 @@ def indices(draw, layout):
 
 
 @composite
-def tensors(draw, numbers=floats(allow_nan=False, min_value=-100, max_value=100)):
+def tensors(
+    draw, numbers=floats(allow_nan=False, min_value=-100, max_value=100), backend=None
+):
     td = draw(tensor_data(numbers))
-    return minitorch.Tensor(td)
+    return minitorch.Tensor(td, backend=backend)
 
 
 @composite
 def shaped_tensors(
-    draw, n, numbers=floats(allow_nan=False, min_value=-100, max_value=100)
+    draw,
+    n,
+    numbers=floats(allow_nan=False, min_value=-100, max_value=100),
+    backend=None,
 ):
     td = draw(tensor_data(numbers))
     values = []
     for i in range(n):
         data = draw(lists(numbers, min_size=td.size, max_size=td.size))
-        values.append(minitorch.Tensor(minitorch.TensorData(data, td.shape)))
+        values.append(
+            minitorch.Tensor(minitorch.TensorData(data, td.shape), backend=backend)
+        )
     return values
 
 

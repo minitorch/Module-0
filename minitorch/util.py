@@ -1,6 +1,3 @@
-from numba import njit
-import numba.typed
-import numba
 import numpy as np
 
 
@@ -14,22 +11,6 @@ def unwrap_tuple(x):
     if len(x) == 1:
         return x[0]
     return x
-
-
-PAR = False
-
-
-def jit(func):
-    if not PAR:
-        return func
-    return njit(parallel=True)(func)
-
-
-List = numba.typed.List
-
-prange = numba.prange
-if not PAR:
-    prange = range
 
 
 def assert_close(a, b):
