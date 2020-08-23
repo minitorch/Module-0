@@ -1,0 +1,21 @@
+[tool]
+[tool.poetry]
+name = "minitorch"
+version = "0.0.0"
+
+[tool.poetry.dependencies]
+python = "*"
+graphviz = "*"
+matplotlib = "*"
+networkx = "*"
+pydot = "*"
+visdom = {git = "https://github.com/facebookresearch/visdom"}
+black = "*"
+colorama = "*"
+flake8 = "*"
+hypothesis = "==4.38"
+numba = "==0.49"
+numpy = "*"
+pep8-naming = "*"
+pytest = "*"
+pytest-runner = "*"

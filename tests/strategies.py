@@ -30,8 +30,9 @@ def shapes(draw):
 
 
 @composite
-def tensor_data(draw, numbers=floats()):
-    shape = draw(shapes())
+def tensor_data(draw, numbers=floats(), shape=None):
+    if shape is None:
+        shape = draw(shapes())
     size = int(minitorch.prod(shape))
     data = draw(lists(numbers, min_size=size, max_size=size))
     return minitorch.TensorData(data, shape)
@@ -44,9 +45,12 @@ def indices(draw, layout):
 
 @composite
 def tensors(
-    draw, numbers=floats(allow_nan=False, min_value=-100, max_value=100), backend=None
+    draw,
+    numbers=floats(allow_nan=False, min_value=-100, max_value=100),
+    backend=None,
+    shape=None,
 ):
-    td = draw(tensor_data(numbers))
+    td = draw(tensor_data(numbers, shape=shape))
     return minitorch.Tensor(td, backend=backend)
 
 

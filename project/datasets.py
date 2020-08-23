@@ -28,6 +28,7 @@ class Graph:
             self.vis = visdom.Visdom()
         else:
             self.vis = None
+        self.first = True
 
     def graph(self, outfile, model=None):
         if self.vis is None:
@@ -58,14 +59,18 @@ class Graph:
             Z = numpy.array(Z)
             ax.contourf(X, Y, Z)
 
-        ax.scatter([p[0] for p in self.X], [p[1] for p in self.X], c=self.y)
+        ax.scatter(
+            [p[0] for p in self.X], [p[1] for p in self.X], c=self.y, edgecolors="black"
+        )
         # plt.savefig(outfile)
         ax.set_title(outfile)
         im = to_fig(canvas)
-
+        if self.first:
+            self.vis.close(win="Progress")
         self.vis.image(
             im.transpose(2, 0, 1), win="Progress", opts=dict(store_history=True)
         )
+        self.first = False
 
 
 class Simple(Graph):

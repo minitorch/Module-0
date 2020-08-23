@@ -118,7 +118,7 @@ class Module:
         raise NotImplementedError('Need to implement for Task 0.4')
 
     def eval(self):
-        "Set the mode of this module and all descendent modules to `train`."
+        "Set the mode of this module and all descendent modules to `eval`."
         # TODO: Implement for Task 0.4.
         raise NotImplementedError('Need to implement for Task 0.4')
 
@@ -169,7 +169,7 @@ class Module:
         return self.__getattribute__(key)
 
     def __call__(self, *args, **kwargs):
-        self.forward(*args, **kwargs)
+        return self.forward(*args, **kwargs)
 
     def forward(self):
         assert False, "Not Implemented"
