@@ -88,5 +88,5 @@ def matmul_tensors(
     return values
 
 
-def assert_isclose(a, b):
-    return np.testing.assert_allclose(a, b, 1e-2, 1e-2)
+def assert_close(a, b):
+    np.testing.assert_allclose(a, b, 1e-2, 1e-2)

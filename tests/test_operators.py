@@ -1,7 +1,7 @@
-from minitorch import assert_close, operators
+from minitorch import operators
 from hypothesis import given
 from hypothesis.strategies import lists
-from .strategies import small_floats
+from .strategies import small_floats, assert_close
 import pytest
 
 
