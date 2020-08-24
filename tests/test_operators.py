@@ -22,6 +22,10 @@ def test_relu(a):
         assert operators.relu(a) == 0.0
 
 
+## Task 0.2
+## Property Testing
+
+
 @pytest.mark.task0_2
 def test_symmetric():
     """
