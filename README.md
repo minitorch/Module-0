@@ -1,4 +1,6 @@
-# Minit Torch Module 0
+# MiniTorch Module 0
+
+<img src="https://minitorch.github.io/_images/match.png"/>
 
 * Docs: https://minitorch.github.io/
 
