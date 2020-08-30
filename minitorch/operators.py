@@ -29,7 +29,7 @@ def neg(x):
 
 
 def lt(x, y):
-    ":math:`f(x) =` 1.0 if x is greater than y else 0.0"
+    ":math:`f(x) =` 1.0 if x is less than y else 0.0"
     # TODO: Implement for Task 0.1.
     raise NotImplementedError('Need to implement for Task 0.1')
 
