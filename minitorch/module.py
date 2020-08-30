@@ -32,7 +32,7 @@ class Module:
 
     def named_parameters(self):
         """
-        Collect all the ancestor parameters of this module.
+        Collect all the parameters of this module and its descendents.
 
 
         Returns:
