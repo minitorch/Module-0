@@ -1,7 +1,6 @@
 ## Task 0.4
 ## Modules
 
-
 class Module:
     """
     Attributes:
@@ -23,12 +22,20 @@ class Module:
     def train(self):
         "Set the mode of this module and all descendent modules to `train`."
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        self.mode = "train"
+        for child_name, child in self._modules.items():
+            child.train()
+
+        #raise NotImplementedError("Need to implement for Task 0.4")
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `eval`."
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        self.mode = "eval"
+        for child_name, child in self._modules.items():
+            child.eval()
+
+        # raise NotImplementedError("Need to implement for Task 0.4")
 
     def named_parameters(self):
         """
@@ -39,7 +46,30 @@ class Module:
             dict: Each name (key) and :class:`Parameter` (value) under this module.
         """
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        new_dic = {}
+        stack = []
+        stack_name = []
+        path = []
+        for para_name, para_value in self._parameters.items():
+            new_dic[para_name] = para_value
+
+        for child_module_name, child_module in self._modules.items():
+            stack.append(child_module)
+            stack_name.append(child_module_name)
+        while len(stack) != 0:
+            s = stack.pop()
+            n = stack_name.pop()
+            if s not in path:
+                for para_name, para_value in s._parameters.items():
+                    new_dic[n + "." + para_name] = para_value
+                path.append(s)
+            for child_module_name, child_module in s._modules.items():
+                stack.append(child_module)
+                stack_name.append(child_module_name)
+        return new_dic
+
+        #raise NotImplementedError("Need to implement for Task 0.4")
+
 
     def parameters(self):
         return self.named_parameters().values()
