@@ -1,6 +1,6 @@
 from minitorch import operators
 from hypothesis import given
-from hypothesis.strategies import lists
+from hypothesis.strategies import lists, integers
 from .strategies import small_floats, assert_close
 import pytest
 
@@ -27,35 +27,56 @@ def test_relu(a):
 
 
 @pytest.mark.task0_2
-def test_symmetric():
+@given(small_floats, small_floats)
+def test_symmetric(x, y):
     """
-    Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
-    gives the same value regardless of the order of its input.
-    """
+        Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
+        gives the same value regardless of the order of its input.
+       """
     None
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    a = operators.mul(x, y)
+    b = operators.mul(y, x)
+    assert_close(a, b)
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
 @pytest.mark.task0_2
-def test_distribute():
+@given(small_floats, small_floats, small_floats)
+def test_distribute(z, x, y):
     r"""
     Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
     None
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    assert_close(operators.mul(z, x + y), operators.mul(z, x) + operators.mul(z, y))
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
+import math
 @pytest.mark.task0_2
-def test_other():
+@given(small_floats, small_floats)
+def test_other(x, y):
     """
     Write a test that ensures some other property holds for your functions.
     """
     None
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    assert operators.id(x) == x
+    if x < y:
+        assert operators.lt(x, y) == 1.0
+    else:
+        assert operators.lt(x, y) == 0.0
+    if x >= 0:
+        assert operators.sigmoid(x) == 1.0 / (1.0 + math.exp(-x))
+    else:
+        assert operators.sigmoid(x) == math.exp(x) / (1.0 + math.exp(-x))
+    if x > 0:
+        assert operators.relu_back(x, y) == y
+    else:
+        assert operators.relu_back(x, y) == 0
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
 # HIGHER ORDER
@@ -78,7 +99,8 @@ def test_property(ls1, ls2):
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    assert_close(operators.sum(ls1) + operators.sum(ls2), sum(operators.addLists(ls1, ls2)))
+    #raise NotImplementedError("Need to implement for Task 0.3")
 
 
 @pytest.mark.task0_3
