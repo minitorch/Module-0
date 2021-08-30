@@ -1,0 +1,6 @@
+networkx==2.4
+pydot==1.4.1
+streamlit==0.75.0
+watchdog==1.0.2
+plotly==4.14.3
+python-mnist
