@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-
+import numpy as np
 
 def make_scatters(graph, model=None, size=50):
     color_map = ["#69bac9", "#ea8484"]
@@ -11,7 +11,7 @@ def make_scatters(graph, model=None, size=50):
     if model is not None:
         colorscale = [[0, "#69bac9"], [1.0, "#ea8484"]]
         z = [
-            model([[j / (size + 1.0), k / (size + 1.0)] for j in range(size + 1)])
+            [np.asarray(x).item() for x in model([[j / (size + 1.0), k / (size + 1.0)] for j in range(size + 1)])]
             for k in range(size + 1)
         ]
         scatters.append(
