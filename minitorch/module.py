@@ -21,13 +21,22 @@ class Module:
 
     def train(self):
         "Set the mode of this module and all descendent modules to `train`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        self.__dict__["training"] = True
+        for module in self.modules():
+            module.train()
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `eval`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        self.__dict__["training"] = False
+        for module in self.modules():
+            module.eval()
+
+    def _named_parameters_collect(self, prefix, res):        
+        for parameter, value in self.__dict__["_parameters"].items():
+            res.append((prefix + parameter, value))
+
+        for name, module in self.__dict__["_modules"].items():
+            module._named_parameters_collect(prefix + name + ".", res)
 
     def named_parameters(self):
         """
@@ -37,13 +46,23 @@ class Module:
         Returns:
             list of pairs: Contains the name and :class:`Parameter` of each ancestor parameter.
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        parameters = []
+        self._named_parameters_collect("", parameters)
+        return parameters
+
+    def _parameters_collect(self, res):
+        for value in self.__dict__["_parameters"].values():
+            res.append(value)
+
+        for module in self.modules():
+            module._parameters_collect(res)
+
 
     def parameters(self):
         "Enumerate over all the parameters of this module and its descendents."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        res = []
+        self._parameters_collect(res)
+        return res
 
     def add_parameter(self, k, v):
         """
@@ -66,7 +85,7 @@ class Module:
         elif isinstance(val, Module):
             self.__dict__["_modules"][key] = val
         else:
-            super().__setattr__(key, val)
+            self.__dict__[key] = val
 
     def __getattr__(self, key):
         if key in self.__dict__["_parameters"]:
