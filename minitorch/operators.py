@@ -204,9 +204,8 @@ def zipWith(fn):
     # TODO: Implement for Task 0.3.
     def z_ln(ls1, ls2):
         ls_fn = []
-        for s1 in ls1:
-            for s2 in ls2:
-                ls_fn.append(fn(s1, s2))
+        for i, _ in enumerate(ls1):
+            ls_fn.append(fn(ls1[i],ls2[i]))
         return ls_fn
     return z_ln
     raise NotImplementedError("Need to implement for Task 0.3")
@@ -237,9 +236,10 @@ def reduce(fn, start):
     """
     # TODO: Implement for Task 0.3.
     def r_fn(ls):
+        r = start
         for i in ls:
-            start = fn(start, i)
-        return start
+            r = fn(r, i)
+        return r
     return r_fn
     raise NotImplementedError("Need to implement for Task 0.3")
 

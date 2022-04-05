@@ -191,6 +191,8 @@ def test_sum_distribute(ls1, ls2):
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
+    assert_close(sum(addLists(ls1,ls2)), sum(ls1) + sum(ls2))
+    return None
     raise NotImplementedError("Need to implement for Task 0.3")
 
 

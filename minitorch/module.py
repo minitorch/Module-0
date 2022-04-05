@@ -23,12 +23,26 @@ class Module:
         "Set the mode of this module and all descendent modules to `train`."
         # TODO: Implement for Task 0.4.
         self.training = True
+        def flat_module(modules):
+            for k_module, v_module in modules.__dict__['_modules'].items():
+                v_module.training = True
+                if len(v_module._modules) > 0 :
+                    flat_module(v_module)
+        flat_module(self)
+        return None
         raise NotImplementedError("Need to implement for Task 0.4")
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `eval`."
         # TODO: Implement for Task 0.4.
         self.training = False
+        def flat_module(modules):
+            for k_module, v_module in modules.__dict__['_modules'].items():
+                v_module.training = False
+                if len(v_module._modules) > 0 :
+                    flat_module(v_module)
+        flat_module(self)
+        return None
         raise NotImplementedError("Need to implement for Task 0.4")
 
     def named_parameters(self):
@@ -40,14 +54,29 @@ class Module:
             list of pairs: Contains the name and :class:`Parameter` of each ancestor parameter.
         """
         # TODO: Implement for Task 0.4.
-        return [{k, v} for k, v in self.__dict__["_parameters"].items()]
+        np = self.__dict__['_parameters']
+        def flat_parameters(prx, module):
+            for k_module, v_module in module.__dict__['_modules'].items():
+                for k_p, v_p in v_module.__dict__['_parameters'].items():
+                    if prx == '':
+                        np[f'{k_module}.{k_p}'] = v_p
+                    else:
+                        np[f'{prx}.{k_module}.{k_p}'] = v_p
+                if len(v_module._modules) > 0:
+                    if prx == '':
+                        s_prx = f'{k_module}'
+                    else:
+                        s_prx = f'{prx}.{k_module}'
+                    flat_parameters(s_prx, v_module)
+        flat_parameters('', self)
+        return np
         raise NotImplementedError("Need to implement for Task 0.4")
 
     def parameters(self):
         "Enumerate over all the parameters of this module and its descendents."
         # TODO: Implement for Task 0.4.
-        v =  [v for k, v in self.named_parameters()]
-        return enumerate(v)
+        v =  [v for v in self.named_parameters().values()]
+        return v
         raise NotImplementedError("Need to implement for Task 0.4")
 
     def add_parameter(self, k, v):
