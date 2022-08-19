@@ -158,6 +158,7 @@ class MathTest(Generic[A]):
         red_arg = [(n1, f2, f1) for (n1, f1), (n2, f2) in zip(red_arg, red_argv)]
         return one_arg, two_arg, red_arg
 
+
 class MathTestVariable(MathTest):
     @staticmethod
     def inv(a):
@@ -210,4 +211,3 @@ class MathTestVariable(MathTest):
     @staticmethod
     def complex(a):
         return (((a * 10 + 7).relu() * 6 + 5).relu() * 10).sigmoid().log() / 50
-
