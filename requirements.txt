@@ -1,5 +1,6 @@
 colorama==0.4.3
 hypothesis == 6.54
+mypy
 numba == 0.55
 numpy == 1.21
 pytest == 6.0.1
