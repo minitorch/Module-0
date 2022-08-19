@@ -1,5 +1,6 @@
-import minitorch
 import networkx as nx
+
+import minitorch
 
 
 def build_expression(code):
@@ -15,6 +16,22 @@ def build_expression(code):
     return out
 
 
+def build_tensor_expression(code):
+
+    variables = {
+            "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+            "y": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+            "z": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+        }
+    variables["x"].name = "x"
+    variables["y"].name = "y"
+    variables["z"].name = "z"
+
+    out = eval(code, variables)
+    out.name = "out"
+    return out
+
+
 class GraphBuilder:
     def __init__(self):
         self.op_id = 0
@@ -22,7 +39,7 @@ class GraphBuilder:
         self.intermediates = {}
 
     def get_name(self, x):
-        if not isinstance(x, minitorch.Variable):
+        if not isinstance(x, minitorch.Scalar) and not isinstance(x, minitorch.Tensor):
             return "constant %s" % (x,)
         elif len(x.name) > 15:
             if x.name in self.intermediates:
@@ -44,7 +61,7 @@ class GraphBuilder:
             (cur,) = queue[0]
             queue = queue[1:]
 
-            if cur.is_leaf():
+            if cur.is_constant() or cur.is_leaf():
                 continue
             else:
                 op = "%s (Op %d)" % (cur.history.last_fn.__name__, self.op_id)
@@ -55,7 +72,7 @@ class GraphBuilder:
                     G.add_edge(self.get_name(input), op, f"{i}")
 
                 for input in cur.history.inputs:
-                    if not isinstance(input, minitorch.Variable):
+                    if not isinstance(input, minitorch.Scalar) and not isinstance(input, minitorch.Tensor):
                         continue
                     queue.append([input])
         return G

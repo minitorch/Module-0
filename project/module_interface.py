@@ -1,5 +1,7 @@
-import streamlit as st
 import networkx as nx
+import streamlit as st
+from streamlit_ace import st_ace
+
 import minitorch
 
 MyModule = None
@@ -7,9 +9,15 @@ minitorch
 
 
 def render_module_sandbox():
-    code = st.text_area(
-        label="Module code",
-        height=600,
+    st.write("## Sandbox for Module Trees")
+
+    st.write(
+        "Visual debugging checks showing the module tree that your code constructs."
+    )
+
+    code = st_ace(
+        language="python",
+        height=300,
         value="""
 class MyModule(minitorch.Module):
     def __init__(self):

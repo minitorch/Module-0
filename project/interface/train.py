@@ -1,20 +1,23 @@
-import plotly.graph_objects as go
-import pandas as pd
 import time
-import streamlit as st
+
 import graph_builder
-import networkx as nx
-import minitorch
 import interface.plots as plots
+import networkx as nx
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
+
+import minitorch
 
 
 def render_train_interface(
     TrainCls, graph=True, hidden_layer=True, parameter_control=False
 ):
     datasets_map = minitorch.datasets
+    st.write("## Sandbox for Model Training")
 
     st.markdown("### Dataset")
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     points = col2.slider("Number of points", min_value=1, max_value=150, value=50)
     selected_dataset = col1.selectbox("Select dataset", list(datasets_map.keys()))
 
@@ -31,7 +34,7 @@ def render_train_interface(
     st.markdown("### Model")
     if hidden_layer:
         hidden_layers = st.number_input(
-            "Size of hidden layer", min_value=1, max_value=10, step=1, value=2
+            "Size of hidden layer", min_value=1, max_value=200, step=1, value=2
         )
     else:
         hidden_layers = 0
@@ -57,7 +60,7 @@ def render_train_interface(
             )
             p.update(value)
 
-    oned = st.checkbox("One-D", False)
+    oned = st.checkbox("Show X-Axis Only (For Simple)", False)
 
     def plot():
         if hasattr(train, "run_many"):
@@ -73,15 +76,16 @@ def render_train_interface(
                 out = [(x.data if hasattr(x, "data") else x) for x in out]
                 return out
 
-        fig = plots.plot_out(dataset, contour, size=25, oned=oned)
+        fig = plots.plot_out(dataset, contour, size=15, oned=oned)
         fig.update_layout(width=600, height=600)
         return fig
 
+    st.markdown("### Initial setting")
     st.write(plot())
 
     if hasattr(train, "train"):
         st.markdown("### Hyperparameters")
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         learning_rate = col1.selectbox(
             "Learning rate", [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0], index=2
         )
@@ -90,7 +94,7 @@ def render_train_interface(
             "Number of epochs", min_value=1, step=25, value=500
         )
 
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
         st_train_button = col1.empty()
         col2.button("Stop Model")
 
@@ -104,10 +108,9 @@ def render_train_interface(
 
     df = []
 
-    if hasattr(train, "train") and st_train_button.button("Train Model"):
-
-        def log_fn(epoch, total_loss, correct, losses):
-            time_elapsed = time.time() - start_time
+    def log_fn(epoch, total_loss, correct, losses):
+        time_elapsed = time.time() - start_time
+        if hasattr(train, "train"):
             st_progress.progress(epoch / max_epochs)
             time_per_epoch = time_elapsed / (epoch + 1)
             st_epoch_timer.markdown(
@@ -118,10 +121,11 @@ def render_train_interface(
                     (max_epochs - epoch) * time_per_epoch,
                 )
             )
-            df.append({"epoch": epoch, "loss": total_loss, "correct": correct})
-            st_epoch_stats.write(pd.DataFrame(reversed(df)))
+        df.append({"epoch": epoch, "loss": total_loss, "correct": correct})
+        st_epoch_stats.write(pd.DataFrame(reversed(df)))
 
-            st_epoch_image.plotly_chart(plot())
+        st_epoch_image.plotly_chart(plot())
+        if hasattr(train, "train"):
             loss_graph = go.Scatter(mode="lines", x=list(range(len(losses))), y=losses)
             fig = go.Figure(loss_graph)
             fig.update_layout(
@@ -131,8 +135,9 @@ def render_train_interface(
             )
             st_epoch_plot.plotly_chart(fig)
 
-            print(
-                f"Epoch: {epoch}/{max_epochs}, loss: {total_loss}, correct: {correct}"
-            )
+            print(f"Epoch: {epoch}/{max_epochs}, loss: {total_loss}, correct: {correct}")
 
+    if hasattr(train, "train") and st_train_button.button("Train Model"):
         train.train(dataset, learning_rate, max_epochs, log_fn)
+    else:
+        log_fn(0, 0, 0, [0])

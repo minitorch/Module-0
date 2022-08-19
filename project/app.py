@@ -1,10 +1,19 @@
+from argparse import ArgumentParser
+
 import streamlit as st
 from interface.streamlit_utils import get_img_tag
 from interface.train import render_train_interface
-import sys
+from math_interface import render_math_sandbox
 from run_torch import TorchTrain
 
-module_num = int(sys.argv[1])
+parser = ArgumentParser()
+parser.add_argument("module_num", type=int)
+parser.add_argument(
+    "--hide_function_defs", action="store_true", dest="hide_function_defs"
+)
+args = parser.parse_args()
+module_num = args.module_num
+hide_function_defs = args.hide_function_defs
 
 st.set_page_config(page_title="interactive minitorch")
 st.sidebar.markdown(
@@ -23,17 +32,17 @@ st.sidebar.markdown(
 )
 
 module_selection = st.sidebar.radio(
-    "Modle",
+    "Module",
     ["Module 0", "Module 1", "Module 2", "Module 3", "Module 4"][: module_num + 1],
+    index=module_num,
 )
 
 
 PAGES = {}
 
 if module_selection == "Module 0":
-    from run_manual import ManualTrain
     from module_interface import render_module_sandbox
-    from math_interface import render_math_sandbox
+    from run_manual import ManualTrain
 
     def render_run_manual_interface():
         st.header("Module 0 - Manual")
@@ -69,11 +78,19 @@ if module_selection == "Module 1":
 
 if module_selection == "Module 2":
     from run_tensor import TensorTrain
+    from show_expression_interface import render_show_expression
+    from tensor_interface import render_tensor_sandbox
 
     def render_run_tensor_interface():
         st.header("Module 2 - Tensors")
         render_train_interface(TensorTrain)
 
+    def render_m2_sandbox():
+        return render_math_sandbox(True, True)
+
+    PAGES["Tensor Sandbox"] = lambda: render_tensor_sandbox(hide_function_defs)
+    PAGES["Tensor Math Sandbox"] = render_m2_sandbox
+    PAGES["Autograd Sandbox"] = lambda: render_show_expression(True)
     PAGES["Module 2: Tensor"] = render_run_tensor_interface
 
 
@@ -88,8 +105,10 @@ if module_selection == "Module 3":
 
 if module_selection == "Module 4":
     from run_mnist_interface import render_run_image_interface
+    from sentiment_interface import render_run_sentiment_interface
 
     PAGES["Module 4: Images"] = render_run_image_interface
+    PAGES["Module 4: Sentiment"] = render_run_sentiment_interface
 
 
 PAGE_OPTIONS = list(PAGES.keys())
