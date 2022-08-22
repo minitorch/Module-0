@@ -103,9 +103,9 @@ def test_eq(a: float) -> None:
 def test_sigmoid(a: float) -> None:
     """Check properties of the sigmoid function, specifically
     * It is always between 0.0 and 1.0.
-    * one minus sigmoid is the same as negative sigmoid
+    * one minus sigmoid is the same as sigmoid of the negative
     * It crosses 0 at 0.5
-    * it is  strictly increasing.
+    * It is  strictly increasing.
     """
     # TODO: Implement for Task 0.2.
     raise NotImplementedError("Need to implement for Task 0.2")
