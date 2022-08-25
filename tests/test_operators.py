@@ -108,7 +108,10 @@ def test_sigmoid(a: float) -> None:
     * It is  strictly increasing.
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    assert sigmoid(a) >= 0.0 and sigmoid(a) <= 1.0
+    assert_close(1-sigmoid(a), sigmoid(-a))
+    assert sigmoid(0) == 0.5
+    assert (sigmoid )
 
 
 @pytest.mark.task0_2
