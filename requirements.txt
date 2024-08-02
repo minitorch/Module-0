@@ -1,3 +1,4 @@
+-i https://mirrors.ustc.edu.cn/pypi/web/simple
 colorama==0.4.3
 hypothesis == 6.54
 mypy == 0.971
