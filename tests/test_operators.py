@@ -23,10 +23,11 @@ from minitorch.operators import (
     relu_back,
     sigmoid,
     sum,
+    zipWith
 )
 
 from .strategies import assert_close, small_floats
-
+import math
 # ## Task 0.1 Basic hypothesis tests.
 
 
@@ -108,6 +109,8 @@ def test_sigmoid(a: float) -> None:
     * It is  strictly increasing.
     """
     # TODO: Implement for Task 0.2.
+    assert sigmoid(0) == 0.5
+    assert_close(sigmoid(a), 1/(1 + math.exp(-a)))
     raise NotImplementedError("Need to implement for Task 0.2")
 
 
@@ -116,6 +119,8 @@ def test_sigmoid(a: float) -> None:
 def test_transitive(a: float, b: float, c: float) -> None:
     "Test the transitive property of less-than (a < b and b < c implies a < c)"
     # TODO: Implement for Task 0.2.
+    assert lt(a, c)
+
     raise NotImplementedError("Need to implement for Task 0.2")
 
 
@@ -126,6 +131,8 @@ def test_symmetric() -> None:
     gives the same value regardless of the order of its input.
     """
     # TODO: Implement for Task 0.2.
+    x, y = 10.0, -0.002
+    assert mul(x,y) == mul(y,x)
     raise NotImplementedError("Need to implement for Task 0.2")
 
 
@@ -136,15 +143,19 @@ def test_distribute() -> None:
     :math:`z \times (x + y) = z \times x + z \times y`
     """
     # TODO: Implement for Task 0.2.
+    x, y, z  = 10.0, -0.002, 1090
+    assert mul(z, add(x,y)) == add(mul(z, x), mul(z, y))
     raise NotImplementedError("Need to implement for Task 0.2")
 
 
 @pytest.mark.task0_2
-def test_other() -> None:
+@given(small_floats)
+def test_other(x:float) -> None:
     """
     Write a test that ensures some other property holds for your functions.
     """
     # TODO: Implement for Task 0.2.
+    assert_close(inv(x), 1/x)
     raise NotImplementedError("Need to implement for Task 0.2")
 
 
@@ -158,6 +169,8 @@ def test_other() -> None:
 @given(small_floats, small_floats, small_floats, small_floats)
 def test_zip_with(a: float, b: float, c: float, d: float) -> None:
     x1, x2 = addLists([a, b], [c, d])
+    # res = addLists([a, b], [c, d])
+    # print(f"test_zip_with: {res}")
     y1, y2 = a + c, b + d
     assert_close(x1, y1)
     assert_close(x2, y2)
@@ -174,7 +187,8 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+    assert_close(add(sum(ls1), sum(ls2)), sum(addLists(ls1, ls2)))
+    # raise NotImplementedError("Need to implement for Task 0.3")
 
 
 @pytest.mark.task0_3

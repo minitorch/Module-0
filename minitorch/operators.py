@@ -161,12 +161,20 @@ def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[fl
          new list
     """
     # TODO: Implement for Task 0.3.
+    def process(ls):
+        arr = []
+        for item in ls:
+            arr.append(fn(item))
+        return arr
+    return process
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def negList(ls: Iterable[float]) -> Iterable[float]:
     "Use `map` and `neg` to negate each element in `ls`"
     # TODO: Implement for Task 0.3.
+    fn = map(neg)
+    return fn(ls)
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
@@ -187,12 +195,24 @@ def zipWith(
 
     """
     # TODO: Implement for Task 0.3.
+    def process(ls1, ls2):
+        arr = []
+        if len(ls1) != len(ls2):
+            return arr
+        for ls1_val, ls2_val in zip(ls1, ls2):
+            arr.append(fn(ls1_val, ls2_val))
+        return arr
+    return process
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
     "Add the elements of `ls1` and `ls2` using `zipWith` and `add`"
     # TODO: Implement for Task 0.3.
+    arr = []
+    fn = zipWith(add)
+    arr = fn(ls1, ls2)
+    return arr
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
@@ -212,16 +232,27 @@ def reduce(
          fn(x_1, x_0)))`
     """
     # TODO: Implement for Task 0.3.
+    def process(ls):
+        ans = start
+        for item in ls:
+            ans = fn(item, ans)
+        return ans
+    return process
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def sum(ls: Iterable[float]) -> float:
     "Sum up a list using `reduce` and `add`."
     # TODO: Implement for Task 0.3.
+    fn = reduce(add, 0.0)
+    return fn(ls)
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def prod(ls: Iterable[float]) -> float:
     "Product of a list using `reduce` and `mul`."
     # TODO: Implement for Task 0.3.
+    fn = reduce(mul, 1)
+    ans = fn(ls)
+    return ans
     raise NotImplementedError("Need to implement for Task 0.3")
