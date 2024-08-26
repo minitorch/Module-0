@@ -119,9 +119,9 @@ class Module:
 
 class Parameter:
     """
-    A Parameter is a special container stored in a :class:`Module`.
+    A Parameter is a special container stored in a `Module`.
 
-    It is designed to hold a :class:`Variable`, but we allow it to hold
+    It is designed to hold a `Variable`, but we allow it to hold
     any value for testing.
     """
 
