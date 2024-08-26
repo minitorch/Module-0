@@ -1,6 +1,14 @@
 import networkx as nx
-
+from dataclasses import dataclass
 import minitorch
+
+if hasattr(minitorch, "Scalar"):
+    Scalar = minitorch.Scalar  # type: ignore
+else:
+
+    @dataclass
+    class Scalar:
+        name: str
 
 
 def build_expression(code):
@@ -17,7 +25,6 @@ def build_expression(code):
 
 
 def build_tensor_expression(code):
-
     variables = {
         "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
         "y": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
@@ -39,7 +46,7 @@ class GraphBuilder:
         self.intermediates = {}
 
     def get_name(self, x):
-        if not isinstance(x, minitorch.Scalar) and not isinstance(x, minitorch.Tensor):
+        if not isinstance(x, Scalar) and not isinstance(x, minitorch.Tensor):
             return "constant %s" % (x,)
         elif len(x.name) > 15:
             if x.name in self.intermediates:
@@ -72,7 +79,7 @@ class GraphBuilder:
                     G.add_edge(self.get_name(input), op, f"{i}")
 
                 for input in cur.history.inputs:
-                    if not isinstance(input, minitorch.Scalar) and not isinstance(
+                    if not isinstance(input, Scalar) and not isinstance(
                         input, minitorch.Tensor
                     ):
                         continue

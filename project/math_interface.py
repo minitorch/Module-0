@@ -65,7 +65,6 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
             st.graphviz_chart(nx.nx_pydot.to_pydot(G).to_string())
 
     if f_type == "Two Arg":
-
         st.write("### " + name)
         render_function(scalar)
         st.write("Function f(x, y)")

@@ -56,7 +56,6 @@ class TorchTrain:
 
         losses = []
         for epoch in range(1, max_epochs + 1):
-
             # Forward
             out = model.forward(torch.tensor(data.X, requires_grad=True)).view(data.N)
             y = torch.tensor(data.y)

@@ -20,17 +20,13 @@ def get_img_tag(src, width=None):
     width: {}px;
 }}
 </style>
-        """.format(
-            img_id, width
-        )
+        """.format(img_id, width)
     else:
         style = ""
     return """
         <img src="{}" class="img-{}" alt="img-{}" />
         {}
-    """.format(
-        src, img_id, img_id, style
-    )
+    """.format(src, img_id, img_id, style)
 
 
 def render_function(fn):

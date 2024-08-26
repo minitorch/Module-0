@@ -164,7 +164,6 @@ def plot_function(title, fn, arange=[(i / 10.0) - 5 for i in range(0, 100)], fn2
 
 
 def plot_function3D(title, fn, arange=[(i / 5.0) - 4.0 for i in range(0, 40)]):
-
     xs = [((x / 10.0) - 5.0 + 1e-5) for x in range(1, 100)]
     ys = [((x / 10.0) - 5.0 + 1e-5) for x in range(1, 100)]
     zs = [[fn(x, y) for x in xs] for y in ys]
