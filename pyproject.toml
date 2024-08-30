@@ -7,8 +7,16 @@ name = "minitorch"
 version = "0.5"
 
 [tool.pyright]
-include = ["minitorch","tests"] 
-exclude = ["**/docs", "**/project", "**/mt_diagrams", "**/assignments"]
+include = ["**/minitorch"]
+exclude = [
+    "**/docs",
+    "**/docs/module1/**",
+    "**/assignments",
+    "**/project",
+    "**/mt_diagrams",
+    "**/.*",
+    "*chainrule.py*",
+]
 venvPath = "."
 venv = ".venv"
 reportUnknownMemberType = "none"
@@ -21,6 +29,8 @@ reportUnusedExpression = "none"
 reportUnknownLambdaType = "none"
 reportIncompatibleMethodOverride = "none"
 reportPrivateUsage = "none"
+reportMissingParameterType = "error"
+
 
 [tool.pytest.ini_options]
 markers = [
@@ -50,7 +60,92 @@ markers = [
     "task4_3",
     "task4_4",
 ]
+[tool.ruff]
 
-[tool.ruff.lint]
-ignore = ["N801", "E203", "E266", "E501", "E741", "N803", "N802", "N806"]
-exclude = [".git","__pycache__","docs/slides/*","old,build","dist"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "**/docs/slides/*",
+    "old,build",
+    "dist",
+    "**/project/**/*",
+    "**/mt_diagrams/*",
+    "**/minitorch/testing.py",
+    "**/docs/**/*",
+]
+
+ignore = [
+    "ANN101",
+    "ANN401",
+    "N801",
+    "E203",
+    "E266",
+    "E501",
+    "E741",
+    "N803",
+    "N802",
+    "N806",
+    "D400",
+    "D401",
+    "D105",
+    "D415",
+    "D402",
+    "D205",
+    "D100",
+    "D101",
+    "D107",
+    "D213",
+    "ANN204",
+    "ANN102",
+]
+select = ["D", "E", "F", "N", "ANN"]
+fixable = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "I",
+    "N",
+    "Q",
+    "S",
+    "T",
+    "W",
+    "ANN",
+    "ARG",
+    "BLE",
+    "COM",
+    "DJ",
+    "DTZ",
+    "EM",
+    "ERA",
+    "EXE",
+    "FBT",
+    "ICN",
+    "INP",
+    "ISC",
+    "NPY",
+    "PD",
+    "PGH",
+    "PIE",
+    "PL",
+    "PT",
+    "PTH",
+    "PYI",
+    "RET",
+    "RSE",
+    "RUF",
+    "SIM",
+    "SLF",
+    "TCH",
+    "TID",
+    "TRY",
+    "UP",
+    "YTT",
+]
+unfixable = []
+
+[tool.ruff.extend-per-file-ignores]
+"tests/**/*.py" = ["D"]
