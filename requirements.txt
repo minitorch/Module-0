@@ -1,7 +1,7 @@
 colorama==0.4.3
 hypothesis == 6.54
 numba == 0.60
-numpy == 2.0.0
+numpy<2
 pre-commit == 2.20.0
 pytest == 8.3.2
 pytest-env
