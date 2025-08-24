@@ -23,6 +23,7 @@ from minitorch.operators import (
     relu,
     relu_back,
     sigmoid,
+    is_close,
 )
 
 from .strategies import assert_close, small_floats
@@ -108,7 +109,13 @@ def test_sigmoid(a: float) -> None:
     * It is  strictly increasing.
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    epsilon = 1e-6
+    assert 0 <= sigmoid(a) <= 1
+    assert is_close(1 - sigmoid(a), sigmoid(-a))
+    assert is_close(sigmoid(0), 0.5)
+    assert epsilon + sigmoid(a) > sigmoid(a)
+
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
 @pytest.mark.task0_2
@@ -116,7 +123,10 @@ def test_sigmoid(a: float) -> None:
 def test_transitive(a: float, b: float, c: float) -> None:
     """Test the transitive property of less-than (a < b and b < c implies a < c)"""
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+
+    if lt(a, b) and lt(b, c):
+        assert a < c
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
 @pytest.mark.task0_2
@@ -125,7 +135,20 @@ def test_symmetric() -> None:
     gives the same value regardless of the order of its input.
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    # Test some edge cases
+    edge_cases = [
+        (0, 0),
+        (1, 0),
+        (-1, 0),
+        (1, 1),
+        (-1, -1),
+        (float("inf"), 2),
+        (float("-inf"), 2),
+    ]
+
+    for a, b in edge_cases:
+        assert mul(a, b) == mul(b, a)
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
 @pytest.mark.task0_2
@@ -134,14 +157,33 @@ def test_distribute() -> None:
     :math:`z \times (x + y) = z \times x + z \times y`
     """
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    edge_cases = [
+        (0, 0, 1),
+        (1, 0, 1),
+        (-1, 0, 3),
+        (1, 1, 4),
+        (-1, -1, 6),
+    ]
+
+    for a, b, c in edge_cases:
+        assert mul(c, (add(a, b))) == (c * a) + (c * b)
+    # raise NotImplementedError("Need to implement for Task 0.2")
 
 
 @pytest.mark.task0_2
 def test_other() -> None:
     """Write a test that ensures some other property holds for your functions."""
     # TODO: Implement for Task 0.2.
-    raise NotImplementedError("Need to implement for Task 0.2")
+    edge_cases = [
+        (0, 0, 1),
+        (1, 0, 1),
+        (-1, 0, 3),
+        (1, 1, 4),
+        (-1, -1, 6),
+    ]
+
+    for a, b, c in edge_cases:
+        assert (a * (b * c)) == (a * b) * c
 
 
 # ## Task 0.3  - Higher-order functions
@@ -169,7 +211,15 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+    if len(ls1) != len(ls2):
+        raise ValueError("Lists must be of the same length")
+    if len(ls1) == 0 or len(ls2) == 0:
+        raise ValueError("List can't be empty")
+    lhs = sum(ls1) + sum(ls2)
+    rhs = sum(addLists(ls1, ls2))
+    assert_close(lhs, rhs)
+
+    # raise NotImplementedError("Need to implement for Task 0.3")
 
 
 @pytest.mark.task0_3
