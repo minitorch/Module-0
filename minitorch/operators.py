@@ -97,12 +97,12 @@ def zipWith(
 
 def reduce(xs: Iterable[float], fn: Callable[[float, float], float]) -> float:
     iter_xs = iter(xs)
-    
+
     try:
         result = next(iter_xs)
     except StopIteration:
         return 0
-    
+
     for x in iter_xs:
         result = fn(result, x)
     return result

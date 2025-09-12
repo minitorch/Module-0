@@ -169,8 +169,9 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     """
     assert_close(
         minitorch.operators.sum(ls1) + minitorch.operators.sum(ls2),
-        minitorch.operators.sum(minitorch.operators.addLists(ls1, ls2))
+        minitorch.operators.sum(minitorch.operators.addLists(ls1, ls2)),
     )
+
 
 @pytest.mark.task0_3
 @given(lists(small_floats))
