@@ -1,0 +1,40 @@
+name: CI (Module 0)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # если есть requirements.txt — подтянем
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # установить сам пакет (editable) + тестовые зависимости
+          pip install -e .
+          pip install pytest hypothesis
+
+      - name: Lint (optional, можно удалить)
+        run: |
+          pip install flake8 pep8-naming
+          flake8 --ignore "N801,E203,E266,E501,W503,F812,F401,F841,E741,N803,N802,N806" minitorch/ tests/ project/
+
+      - name: Run tests (Module 0 only)
+        run: |
+          echo "Module 0"
+          pytest -q -m task0_1
+          pytest -q -m task0_2
+          pytest -q -m task0_3
+          pytest -q -m task0_4

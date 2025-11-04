@@ -73,13 +73,26 @@ def spiral(N):
 
     def y(t):
         return t * math.sin(t) / 20.0
-    X = [(x(10.0 * (float(i) / (N // 2))) + 0.5, y(10.0 * (float(i) / (N //
-        2))) + 0.5) for i in range(5 + 0, 5 + N // 2)]
-    X = X + [(y(-10.0 * (float(i) / (N // 2))) + 0.5, x(-10.0 * (float(i) /
-        (N // 2))) + 0.5) for i in range(5 + 0, 5 + N // 2)]
-    y2 = [0] * (N // 2) + [1] * (N // 2)
+
+    half = N // 2
+    idx_range = range(5, 5 + half)
+
+    t_pos = [10.0 * (float(i) / half) for i in idx_range]
+    t_neg = [-10.0 * (float(i) / half) for i in idx_range]
+
+    X1 = [(x(t) + 0.5, y(t) + 0.5) for t in t_pos]
+    X2 = [(y(t) + 0.5, x(t) + 0.5) for t in t_neg]
+
+    X = X1 + X2
+    y2 = [0] * half + [1] * half
     return Graph(N, X, y2)
 
 
-datasets = {'Simple': simple, 'Diag': diag, 'Split': split, 'Xor': xor,
-    'Circle': circle, 'Spiral': spiral}
+datasets = {
+    "Simple": simple,
+    "Diag": diag,
+    "Split": split,
+    "Xor": xor,
+    "Circle": circle,
+    "Spiral": spiral,
+}
