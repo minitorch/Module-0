@@ -91,7 +91,6 @@ if module_selection == "Module 2":
     PAGES["Autograd Sandbox"] = lambda: render_show_expression(True)
     PAGES["Module 2: Tensor"] = render_run_tensor_interface
 
-
 if module_selection == "Module 3":
     from run_fast_tensor import FastTrain
 
