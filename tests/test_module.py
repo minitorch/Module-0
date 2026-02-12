@@ -6,7 +6,7 @@ import minitorch
 from .strategies import med_ints, small_floats
 
 # # Tests for module.py
-
+print("hi")
 
 # ## Website example
 
