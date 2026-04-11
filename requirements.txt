@@ -1,4 +1,4 @@
-colorama==0.4.3
+colorama==0.4.6
 hypothesis == 6.54
 numba == 0.60
 numpy == 2.0.0
